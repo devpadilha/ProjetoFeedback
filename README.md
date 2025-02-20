@@ -50,9 +50,9 @@ No arquivo composer.json, adicione:
 }
 ```
 Depois, execute:
-
+```
 composer dump-autoload
-
+```
 5️⃣ Iniciar o Servidor
 
 Este projeto foi desenvolvido e testado utilizando o Herd, um ambiente local para PHP. Se estiver utilizando o Herd, basta garantir que ele está rodando e acessar a URL configurada (exemplo: http://projetofeedback.test/).
