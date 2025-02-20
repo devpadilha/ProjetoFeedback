@@ -1,0 +1,19 @@
+{
+    "name": "fpadi/projeto-feedback",
+    "description": "Projeto de feedback usando PHP e MVC",
+    "version": "1.0.0",
+    "autoload": {
+        "psr-4": {
+            "ProjetoFeedback\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "devpads",
+            "email": "fpadilha.augusto@gmail.com"
+        }
+    ],
+    "require": {
+        "pecee/simple-router": "^5.4"
+    }
+}
