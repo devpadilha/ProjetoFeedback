@@ -8,7 +8,7 @@ require __DIR__ . '/../app/Database.php';
 require __DIR__ . '/../app/Session.php';
 
 // Inicia a sessão
-startSession();
+session_start();
 
 // Carrega as rotas
 require '../src/routes.php';

@@ -74,6 +74,6 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <a href="/" class="back-link">Voltar para o formulário de feedback</a>
+    <a href="/logout" class="back-link">Voltar para o formulário de feedback</a>
 </body>
 </html>

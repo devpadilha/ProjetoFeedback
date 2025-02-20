@@ -1,24 +1,27 @@
 <?php
 
 use Pecee\SimpleRouter\SimpleRouter;
+use ProjetoFeedback\Controllers\AuthController;
 use ProjetoFeedback\Controllers\FeedbackController;
+use ProjetoFeedback\Middleware\AuthMiddleware;
 
-// Rota para a página inicial
+// Rotas protegidas
+SimpleRouter::group(['middleware' => AuthMiddleware::class], function() {
+    SimpleRouter::get('/feedbacks', [FeedbackController::class, 'index']);
+    SimpleRouter::get('/feedbacks/{id}', [FeedbackController::class, 'show']);
+    SimpleRouter::put('/feedback/atualizar', [FeedbackController::class, 'update']);
+});
+
+// Rotas públicas
 SimpleRouter::get('/', function() {
     require __DIR__ . '/../src/views/form.view.php';
 });
-
-// Rota para listar feedbacks
-SimpleRouter::get('/feedbacks', [FeedbackController::class, 'index']);
-
-// Rota para exibir detalhes de um feedback
-SimpleRouter::get('/feedbacks/{id}', [FeedbackController::class, 'show']);
-
-// Rota para cadastrar um novo feedback
 SimpleRouter::post('/feedback/cadastrar', [FeedbackController::class, 'store']);
 
-// Rota para atualizar o status de um feedback
-SimpleRouter::put('/feedback/atualizar', [FeedbackController::class, 'update']);
+// Rotas de autenticação
+SimpleRouter::get('/login', [AuthController::class, 'login']);
+SimpleRouter::post('/login', [AuthController::class, 'login']);
+SimpleRouter::get('/logout', [AuthController::class, 'logout']);
 
 // Inicia o roteador
 SimpleRouter::start();

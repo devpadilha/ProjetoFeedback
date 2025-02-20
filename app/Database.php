@@ -1,6 +1,6 @@
 <?php
 
-namespace fpadi\ProjetoFeedback;
+namespace ProjetoFeedback;
 
 use PDO, PDOException;
 

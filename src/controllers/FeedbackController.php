@@ -48,4 +48,29 @@ class FeedbackController {
         die("Método HTTP não permitido.");
     }
     }
+
+    public function login() {
+    // Verifica se o formulário de login foi enviado
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        // Verifica as credenciais (usuário "admin" e senha "123456")
+        if ($username === 'admin' && $password === '123456') {
+            // Inicia a sessão e redireciona para a lista de feedbacks
+            session_start();
+            $_SESSION['logged_in'] = true;
+            header('Location: /feedbacks');
+            exit;
+        } else {
+            // Exibe uma mensagem de erro
+            $error = "Usuário ou senha incorretos.";
+            require __DIR__ . '/../Views/login.view.php';
+        }
+    } else {
+        // Exibe o formulário de login
+        require __DIR__ . '/../Views/login.view.php';
+    }
+}
+
 }
