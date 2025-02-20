@@ -25,12 +25,12 @@ Um sistema simples de feedback desenvolvido em PHP, seguindo o padrão MVC (Mode
 📥 Instalação e Configuração
 
 1️⃣ Clonar o Repositório
-'''console
+'''
 git clone https://github.com/seu-usuario/projeto-feedback.git
 cd projeto-feedback
 '''
 2️⃣ Instalar Dependências
-'''console
+'''
 composer install
 '''
 3️⃣ Configurar o Banco de Dados
@@ -42,7 +42,7 @@ ambos os usuário e senha do banco são 'root', mas podem ser alterados no arqui
 4️⃣ Configurar Autoload do Composer
 
 No arquivo composer.json, adicione:
-'''console
+'''json
 "autoload": {
     "psr-4": {
         "ProjetoFeedback\\": "src/"
@@ -58,7 +58,7 @@ composer dump-autoload
 Este projeto foi desenvolvido e testado utilizando o Herd, um ambiente local para PHP. Se estiver utilizando o Herd, basta garantir que ele está rodando e acessar a URL configurada (exemplo: http://projetofeedback.test/).
 
 Caso utilize outro servidor, como o embutido do PHP, rode o comando:
-'''console
+'''
 php -S localhost:8000 -t public
 '''
 Se estiver usando Apache ou Nginx, certifique-se de configurar o Virtual Host para apontar para a pasta public.
