@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Feedbacks</title>
+    <title>Detalhes do Feedback</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,69 +11,92 @@
             margin: 0;
             padding: 20px;
         }
+        .feedback-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
         h1 {
             text-align: center;
             color: #333;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .feedback-details p {
+            margin: 10px 0;
+            font-size: 16px;
         }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #28a745;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-        a {
+        .feedback-details strong {
             color: #28a745;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
         }
         .back-link {
             display: block;
             text-align: center;
             margin-top: 20px;
+            color: #28a745;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .status-form {
+            margin-top: 20px;
+        }
+        .status-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .status-form select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .status-form button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .status-form button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
-    <h1>Feedbacks Cadastrados</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Tipo</th>
-                <th>Status</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($feedbacks as $feedback): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($feedback['id']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['titulo']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['tipo']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['status']); ?></td>
-                    <td>
-                        <a href="/feedbacks/<?php echo $feedback['id']; ?>">Detalhes</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <a href="/" class="back-link">Voltar para o formulário de feedback</a>
+    <div class="feedback-container">
+        <h1>Detalhes do Feedback</h1>
+        <div class="feedback-details">
+            <p><strong>ID:</strong> <?php echo htmlspecialchars($feedback['id']); ?></p>
+            <p><strong>Título:</strong> <?php echo htmlspecialchars($feedback['titulo']); ?></p>
+            <p><strong>Descrição:</strong> <?php echo htmlspecialchars($feedback['descricao']); ?></p>
+            <p><strong>Tipo:</strong> <?php echo htmlspecialchars($feedback['tipo']); ?></p>
+            <p><strong>Status:</strong> <?php echo htmlspecialchars($feedback['status']); ?></p>
+        </div>
+
+        <!-- Formulário para atualizar o status -->
+        <form action="/feedback/atualizar" method="POST", class="status-form">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="id" value="<?php echo $feedback['id']; ?>">
+            <label for="status">Atualizar Status:</label>
+            <select name="status" id="status" required>
+                <option value="recebido" <?php echo $feedback['status'] === 'recebido' ? 'selected' : ''; ?>>Recebido</option>
+                <option value="em análise" <?php echo $feedback['status'] === 'em análise' ? 'selected' : ''; ?>>Em Análise</option>
+                <option value="em desenvolvimento" <?php echo $feedback['status'] === 'em desenvolvimento' ? 'selected' : ''; ?>>Em Desenvolvimento</option>
+                <option value="finalizado" <?php echo $feedback['status'] === 'finalizado' ? 'selected' : ''; ?>>Finalizado</option>
+            </select>
+            <button type="submit">Atualizar Status</button>
+        </form>
+
+        <a href="/feedbacks" class="back-link">Voltar para a lista de feedbacks</a>
+    </div>
 </body>
 </html>

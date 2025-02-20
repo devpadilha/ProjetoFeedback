@@ -7,13 +7,16 @@ class FeedbackController {
     public function index() {
         $feedbackModel = new Feedback();
         $feedbacks = $feedbackModel->getAll();
-        require 'src/views/feedbacks.view.php';
+        require __DIR__ . '/../views/feedbacks.view.php';
     }
 
     public function show($id) {
         $feedbackModel = new Feedback();
         $feedback = $feedbackModel->getById($id);
-        require 'src/views/feedbacks-show.view.php';
+        if(! $feedback) {
+            die ("Feedback não encontrado");
+        }
+        require __DIR__ . '/../views/feedbacks-show.view.php';
     }
 
     public function store() {
@@ -28,9 +31,21 @@ class FeedbackController {
         header('Location: /feedbacks');
     }
 
-    public function update($id, $status) {
+    public function update() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT') {
+        // Obtém os dados do formulário
+        $id = $_POST['id'];
+        $status = $_POST['status'];
+
+        // Atualiza o status do feedback no banco de dados
         $feedbackModel = new Feedback();
         $feedbackModel->updateStatus($id, $status);
+
+        // Redireciona para a lista de feedbacks
         header('Location: /feedbacks');
+        exit;
+    } else {
+        die("Método HTTP não permitido.");
+    }
     }
 }
